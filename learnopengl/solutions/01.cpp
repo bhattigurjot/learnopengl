@@ -1,3 +1,6 @@
+// To draw 2 triangles next to each other using glDrawArrays by adding more vertices to your data
+
+/*
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -120,8 +123,11 @@ int main(void)
 	// Vertex Data for a triangle
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f, // Left vertex
+		-0.1f, -0.5f, 0.0f,  // Right vertex
+		-0.1f,  0.5f, 0.0f,  // Top vertex
+		 0.1f, -0.5f, 0.0f, // Left vertex
 		 0.5f, -0.5f, 0.0f, // Right vertex
-		 0.0f,  0.5f, 0.0f  // Top vertex
+		 0.1f,  0.5f, 0.0f  // Top vertex
 	};
 
 	// Vertex Array Object
@@ -157,7 +163,7 @@ int main(void)
 		// Activate program object; every shader and rendering call after uses this program
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO); // not required here, because of only single VAO
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		// Swap front and back buffers
 		glfwSwapBuffers(window);
@@ -176,13 +182,19 @@ int main(void)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
+	// 
 	//	Setframebuffer callback function for resizing window 
+	//
 	glViewport(0, 0, width, height);
 }
 
 void processInput(GLFWwindow *window)
 {
+	// 
 	//	Process inputs in the window
+	//
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 }
+
+*/

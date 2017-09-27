@@ -1,3 +1,6 @@
+// Create the same 2 triangles using two different VAOs and VBOs for their data
+
+/*
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -118,32 +121,47 @@ int main(void)
 	glDeleteShader(fragmentShader);
 
 	// Vertex Data for a triangle
-	float vertices[] = {
+	float vertices1[] = {
 		-0.5f, -0.5f, 0.0f, // Left vertex
-		 0.5f, -0.5f, 0.0f, // Right vertex
-		 0.0f,  0.5f, 0.0f  // Top vertex
+		-0.1f, -0.5f, 0.0f,  // Right vertex
+		-0.1f,  0.5f, 0.0f,  // Top vertex
+	};
+	float vertices2[] = {
+		0.1f, -0.5f, 0.0f, // Left vertex
+		0.5f, -0.5f, 0.0f, // Right vertex
+		0.1f,  0.5f, 0.0f  // Top vertex
 	};
 
 	// Vertex Array Object
-	unsigned int VAO;
-	glGenVertexArrays(1, &VAO);
+	unsigned int VAOs[2];
+	glGenVertexArrays(2, VAOs);
 
 	// Vertex Buffer Object
-	unsigned int VBO;
-	glGenBuffers(1, &VBO);
+	unsigned int VBOs[2];
+	glGenBuffers(2, VBOs);
 
 	// Bind VAO
-	glBindVertexArray(VAO);
+	glBindVertexArray(VAOs[0]);
 	// Copy vertices array in a buffer for OpenGL to use
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);
 	// Set Vertex Attributes pointers
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	// Bind VAO
+	glBindVertexArray(VAOs[1]);
+	// Copy vertices array in a buffer for OpenGL to use
+	glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);
+	// Set Vertex Attributes pointers
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0); // size == 0 to let Opengl figure it out
+	glEnableVertexAttribArray(0);
+	
 	// Unbind VBO as glVertexAttribPointer registered VBO as vertex attribute's bound vertex
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 	// Unbind VAO, so that other VAO calls don't modify this VAO
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 
 	// Loop until the user closes the window
 	while (!glfwWindowShouldClose(window))
@@ -156,7 +174,9 @@ int main(void)
 
 		// Activate program object; every shader and rendering call after uses this program
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO); // not required here, because of only single VAO
+		glBindVertexArray(VAOs[0]); // not required here, because of only single VAO
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(VAOs[1]); // not required here, because of only single VAO
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		// Swap front and back buffers
@@ -166,8 +186,8 @@ int main(void)
 	}
 
 	// Delete allocated resources
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(2, VAOs);
+	glDeleteBuffers(2, VBOs);
 
 	// Clear all previously allocated GLFW resources and terminate
 	glfwTerminate();
@@ -186,3 +206,4 @@ void processInput(GLFWwindow *window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 }
+*/
