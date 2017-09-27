@@ -1,3 +1,4 @@
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -6,8 +7,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // Screen settings
-const unsigned SCREEN_WIDTH = 800;
-const unsigned SCREEN_HEIGHT = 600;
+const unsigned int SCREEN_WIDTH = 800;
+const unsigned int SCREEN_HEIGHT = 600;
 
 int main(void)
 {
@@ -35,6 +36,13 @@ int main(void)
 	glfwMakeContextCurrent(window);
 	// Register setframebuffer callback function for resizing window
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	// glad: load all OpenGL function pointers
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cerr << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
 
 	// Loop until the user closes the window
 	while (!glfwWindowShouldClose(window))
