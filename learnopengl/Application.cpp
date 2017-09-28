@@ -28,11 +28,11 @@ const char *fragmentShaderSource = R"glsl(
 	#version 330 core
 	out vec4 FragColor;
 
-	in vec4 vertexColor;
+	uniform vec4 ourColor;
 
 	void main()
 	{
-		FragColor = vertexColor;
+		FragColor = ourColor;
 	} 
 
 )glsl";
@@ -158,6 +158,12 @@ int main(void)
 		// Render here
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		float timeValue = glfwGetTime();
+		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		glUseProgram(shaderProgram);
+		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
 		// Activate program object; every shader and rendering call after uses this program
 		glUseProgram(shaderProgram);
