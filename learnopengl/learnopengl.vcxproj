@@ -128,6 +128,9 @@
     <None Include="shaders\fshader.fs" />
     <None Include="shaders\vShader.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="solutions\05.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
