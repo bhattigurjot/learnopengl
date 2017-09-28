@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h" />
@@ -127,9 +128,6 @@
   <ItemGroup>
     <None Include="shaders\fshader.fs" />
     <None Include="shaders\vShader.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="solutions\05.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,6 +21,9 @@
     <ClCompile Include="src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -30,8 +33,5 @@
   <ItemGroup>
     <None Include="shaders\fshader.fs" />
     <None Include="shaders\vShader.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="solutions\05.txt" />
   </ItemGroup>
 </Project>

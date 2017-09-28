@@ -55,6 +55,13 @@ int main(void)
 		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, // Top vertex
 	};
 
+	// Texture Data 
+	float texCoords[] = {
+		0.0f, 0.0f, // lower-left corner
+		1.0f, 0.0f, // lower-right corner
+		0.5f, 1.0f // top-center corner
+	};
+
 	// Vertex Array Object
 	unsigned int VAO;
 	glGenVertexArrays(1, &VAO);
