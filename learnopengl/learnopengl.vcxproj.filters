@@ -34,4 +34,12 @@
     <None Include="shaders\fshader.fs" />
     <None Include="shaders\vShader.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -129,6 +129,10 @@
     <None Include="shaders\fshader.fs" />
     <None Include="shaders\vShader.vs" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\container.jpg" />
+    <Image Include="textures\wall.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
