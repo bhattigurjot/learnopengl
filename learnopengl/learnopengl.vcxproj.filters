@@ -45,7 +45,4 @@
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="solutions\07.txt" />
-  </ItemGroup>
 </Project>
