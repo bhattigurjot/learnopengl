@@ -142,6 +142,9 @@
     <Image Include="textures\container.jpg" />
     <Image Include="textures\wall.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="solutions\08.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
