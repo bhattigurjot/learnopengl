@@ -11,6 +11,7 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 
 // Screen settings
@@ -62,6 +63,8 @@ int main(void)
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	// Register mouse callback function with each mouse move
 	glfwSetCursorPosCallback(window, mouse_callback);
+	// Register scroll callback function with each scroll
+	glfwSetScrollCallback(window, scroll_callback);
 
 	// Tell GLFW to capture our mouse
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -235,11 +238,7 @@ int main(void)
 	ourShader.use();
 	ourShader.setInt("texture1", 0);
 	ourShader.setInt("texture2", 1);
-
-	// Projection matrix
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
-	ourShader.setMat4("projection", projection);
-
+	
 	// Loop until the user closes the window
 	while (!glfwWindowShouldClose(window))
 	{
@@ -261,6 +260,10 @@ int main(void)
 
 		// Activate program object; every shader and rendering call after uses this program
 		ourShader.use();
+
+		// Projection matrix
+		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
+		ourShader.setMat4("projection", projection);
 
 		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		ourShader.setMat4("view", view);
@@ -333,6 +336,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
 	cameraFront = glm::normalize(front);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	if (fov >= 1.0f && fov <= 45.0f)
+		fov -= yoffset;
+	if (fov <= 1.0f)
+		fov = 1.0f;
+	if (fov >= 45.0f)
+		fov = 45.0f;
 }
 
 void processInput(GLFWwindow *window)
