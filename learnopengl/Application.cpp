@@ -10,6 +10,7 @@
 #include "src/Shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void processInput(GLFWwindow *window);
 
 // Screen settings
@@ -20,6 +21,14 @@ const unsigned int SCREEN_HEIGHT = 600;
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+// Mouse
+bool firstMouse = true;
+float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float pitch = 0.0f;
+float lastX = (float)SCREEN_WIDTH / 2.0;
+float lastY = (float)SCREEN_HEIGHT / 2.0;
+float fov = 45.0f;
 
 // Timing
 float deltaTime = 0.0f; // time between current frame and last frame
@@ -51,6 +60,11 @@ int main(void)
 	glfwMakeContextCurrent(window);
 	// Register setframebuffer callback function for resizing window
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	// Register mouse callback function with each mouse move
+	glfwSetCursorPosCallback(window, mouse_callback);
+
+	// Tell GLFW to capture our mouse
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// glad: load all OpenGL function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -248,8 +262,7 @@ int main(void)
 		// Activate program object; every shader and rendering call after uses this program
 		ourShader.use();
 
-		glm::mat4 view = glm::mat4(1.0f);
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		ourShader.setMat4("view", view);
 
 		// Render box
@@ -286,6 +299,40 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	//	Setframebuffer callback function for resizing window 
 	glViewport(0, 0, width, height);
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+
+	if (firstMouse) // this bool variable is initially set to true
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coords range from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	// Constraints
+	if (pitch > 89.0f) pitch = 89.0f;
+	if (pitch < -89.0f) pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+	cameraFront = glm::normalize(front);
 }
 
 void processInput(GLFWwindow *window)
